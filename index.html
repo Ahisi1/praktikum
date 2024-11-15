@@ -8,30 +8,26 @@
       <button class="button">Stift</button>
       <button class="button">Radiergummi</button>
       <button class="button">Farbe</button>
-    </container>
     <style>
       canvas {
         border: 1px solid black;
-        margin: 70px;
-        width: 90%;
-        height: 70vh;
-        justify-content: left;
-        align-items: left;
+        margin: 100px;
+        display: flex;
       }
       .button {
-        margin: 20px;
-        padding: 20px 40px;
+        margin: 15px;
+        height: 7vh;
+        display: inline block;
+        padding: 20px 30px;
         background-color: rgb(255, 0, 0);
         font-size: 20px;
         border-radius: 40px;
-        justify-content: center;
-        align-items: center;В
-        gap: 10px;
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
-    <canvas id="drawingCanvas" width="900" height="600"></canvas>
+    <canvas id="drawingCanvas" width="1700" height="600"></canvas>
     <script src="script.js"></script>
   </body>
 </html>
