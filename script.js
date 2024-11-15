@@ -8,18 +8,22 @@ canvas.addEventListener('mousemove', draw);
 
 function startDrawing(e) {
     drawing = true;
-    draw(e); // ensures a dot is drawn on click
+    draw(e);
 }
 
 function stopDrawing() {
     drawing = false;
-    ctx.beginPath(); // starts a new path after lifting the mouse
+    ctx.beginPath(); 
 }
+function erase(e) {
+    if (!isErasing) return;
+    ctx.clearRect(e.offsetX - ctx.lineWidth / 2, e.offsetY - ctx.lineWidth / 2, ctx.lineWidth, ctx.lineWidth);
+    }
 
 function draw(e) {
     if (!drawing) return;
     ctx.lineWidth = 5;
-    ctx.lineCap = 'round';
+    ctx.lineCap = 'solid';
     ctx.strokeStyle = 'black';
 
     ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
