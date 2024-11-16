@@ -4,10 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Canvas</title>
-    <container class="container">
-      <button class="button">Stift</button>
-      <button class="button">Radiergummi</button>
-      <button class="button">Farbe</button>
     <style>
       canvas {
         border: 1px solid black;
@@ -24,10 +20,19 @@
         border-radius: 40px;
         cursor: pointer;
       }
+      .active {
+        background-color: aliceblue;
+      }
     </style>
   </head>
   <body>
-    <canvas id="drawingCanvas" width="1700" height="600"></canvas>
+    <container class="container">
+      <button class="button stiftButton active">Stift</button>
+      <button class="button eraseButton">Radiergummi</button>
+      <button id="buttonColor" class="button colorButton">Farbe</button>
+      <input type="color" id="colorSelecter" />
+    </container>
+    <canvas id="Canvas1" width="1700" height="600"></canvas>
     <script src="script.js"></script>
   </body>
 </html>
