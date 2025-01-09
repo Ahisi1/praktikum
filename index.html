@@ -5,34 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Canvas</title>
     <style>
-      canvas {
-        border: 1px solid black;
-        margin: 100px;
+      body {
+        background-color: #f5f5f5;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        background-color: white;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
         display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
       }
+
+      canvas {
+        border: 2px solid #ddd;
+        border-radius: 12px;
+        background-color: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        margin: 200px auto 0;
+        display: block;
+        max-width: 95%;
+        height: auto;
+        cursor: default;
+      }
+
       .button {
-        margin: 15px;
-        height: 7vh;
-        display: inline block;
-        padding: 20px 30px;
-        background-color: rgb(255, 0, 0);
-        font-size: 20px;
-        border-radius: 40px;
+        margin: 0;
+        padding: 12px 25px;
+        background: linear-gradient(145deg, #2196f3, #1976d2);
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
         cursor: pointer;
+        color: white;
+        font-weight: 500;
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
+        transition: all 0.3s ease;
       }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(33, 150, 243, 0.3);
+      }
+
       .active {
-        background-color: aliceblue;
+        background: linear-gradient(145deg, #1976d2, #1565c0);
+        color: white;
+      }
+
+      #bgColorSelector,
+      #colorSelecter {
+        margin: 0;
+        width: 50px;
+        height: 40px;
+        padding: 5px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      #bgColorSelector:hover,
+      #colorSelecter:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       }
     </style>
   </head>
   <body>
-    <container class="container">
+    <div class="container">
       <button class="button stiftButton active">Stift</button>
       <button class="button eraseButton">Radiergummi</button>
       <button id="buttonColor" class="button colorButton">Farbe</button>
       <input type="color" id="colorSelecter" />
-    </container>
+      <button id="bgColorBtn" class="button bgColorButton">Hintergrund</button>
+      <input type="color" id="bgColorSelector" />
+      <button class="button clearButton">Alles löschen</button>
+    </div>
     <canvas id="Canvas1" width="1700" height="600"></canvas>
     <script src="script.js"></script>
+    <script>
+      const clearButton = document.querySelector(".clearButton");
+      const stiftButton = document.querySelector(".stiftButton");
+      const canvas = document.getElementById("Canvas1");
+
+      stiftButton.addEventListener("click", () => {
+        canvas.style.cursor = "url('pencil.png') 0 20, crosshair";
+      });
+
+      clearButton.addEventListener("click", () => {
+        const ctx = canvas.getContext("2d");
+        const currentBgColor = canvas.style.backgroundColor;
+
+        ctx.save();
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.restore();
+
+        canvas.style.backgroundColor = currentBgColor;
+      });
+      // как весь этот код перенести в гитхаб?
+    </script>
   </body>
 </html>

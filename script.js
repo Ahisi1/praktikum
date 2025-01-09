@@ -1,12 +1,16 @@
-let canvas = document.getElementById("Canvas1");
-let ctx = canvas.getContext("2d");
+const canvas = document.getElementById('Canvas1');
+const ctx = canvas.getContext('2d');
 let drawing = false;
-let colordraw = "black";
+let colordraw = 'black';
 let isErasing = false;
+const bgColor = 'white';
 
-canvas.addEventListener("mousedown", startDrawing);
-canvas.addEventListener("mouseup", stopDrawing);
-canvas.addEventListener("mousemove", (event) => {
+const bgColorBtn = document.getElementById('bgColorBtn');
+const bgColorSelector = document.getElementById('bgColorSelector');
+
+canvas.addEventListener('mousedown', startDrawing);
+canvas.addEventListener('mouseup', stopDrawing);
+canvas.addEventListener('mousemove', (event) => {
   if (isErasing) {
     erase(event);
   } else {
@@ -14,15 +18,17 @@ canvas.addEventListener("mousemove", (event) => {
   }
 });
 
-function startDrawing(e) {
+const startDrawing = (e) => {
   drawing = true;
   draw(e);
-}
-function stopDrawing() {
+};
+
+const stopDrawing = () => {
   drawing = false;
   ctx.beginPath();
-}
-function erase(e) {
+};
+
+const erase = (e) => {
   if (!isErasing) return;
   ctx.clearRect(
     e.offsetX - ctx.lineWidth / 4,
@@ -30,53 +36,83 @@ function erase(e) {
     ctx.lineWidth,
     ctx.lineWidth
   );
-}
-function draw(e) {
+};
+
+const draw = (e) => {
   if (!drawing) return;
   ctx.lineWidth = 5;
-  ctx.lineCap = "solid";
+  ctx.lineCap = 'solid';
   ctx.strokeStyle = colordraw;
 
   ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
   ctx.stroke();
   ctx.beginPath();
   ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
-}
+};
 
-function ActiveButton(event) {
-  let buttons = document.querySelectorAll("button");
+const activeButton = (event) => {
+  const buttons = document.querySelectorAll('button');
   buttons.forEach((button) => {
-    button.classList.remove("active");
+    button.classList.remove('active');
   });
-  event.target.classList.add("active");
-}
+  event.target.classList.add('active');
+};
 
-let stiftButton = document.querySelector(".stiftButton");
-let eraseButton = document.querySelector(".eraseButton");
-let colorButton = document.querySelector(".colorButton");
-let colorInput = document.querySelector("#colorSelecter");
+const stiftButton = document.querySelector('.stiftButton');
+const eraseButton = document.querySelector('.eraseButton');
+const colorButton = document.querySelector('.colorButton');
+const colorInput = document.querySelector('#colorSelecter');
 
 console.log(colorButton);
 
-stiftButton.addEventListener("click", (event) => {
-  event.preventDefault;
+stiftButton.addEventListener('click', (event) => {
+  event.preventDefault();
   isErasing = false;
-  ActiveButton(event);
+  activeButton(event);
 });
 
-eraseButton.addEventListener("click", (event) => {
-  event.preventDefault;
+eraseButton.addEventListener('click', (event) => {
+  event.preventDefault();
   isErasing = true;
-  ActiveButton(event);
+  activeButton(event);
 });
 
-colorButton.addEventListener("click", (event) => {
+colorButton.addEventListener('click', (event) => {
   event.preventDefault();
   colorInput.click();
-  ActiveButton(event);
+  activeButton(event);
 });
 
-colorInput.addEventListener("input", (event) => {
-  event.preventDefault;
+colorInput.addEventListener('input', (event) => {
+  event.preventDefault();
   colordraw = event.target.value;
+});
+
+bgColorBtn.addEventListener('click', () => {
+  bgColorSelector.click();
+});
+
+bgColorSelector.addEventListener('input', (e) => {
+  const ctx = canvas.getContext('2d');
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  canvas.style.backgroundColor = e.target.value;
+});
+
+const clearButton = document.querySelector('.clearButton');
+
+clearButton.addEventListener('click', () => {
+  const ctx = canvas.getContext('2d');
+  const currentBgColor = canvas.style.backgroundColor;
+
+  // Сохраняем текущие настройки контекста
+  ctx.save();
+
+  // Очищаем весь canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Восстанавливаем настройки контекста
+  ctx.restore();
+
+  // Сохраняем цвет фона
+  canvas.style.backgroundColor = currentBgColor;
 });

@@ -1,0 +1,45 @@
+# Зависимости
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Среда разработки
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE и редакторы
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Файлы сборки
+/dist
+/build
+/out
+
+# Логи
+logs
+*.log
+
+# Временные файлы
+.tmp
+.temp
+
+# Кэш
+.cache/
+.npm/
+
+# Тестовое покрытие
+coverage/
+
+# Локальные файлы
+*.local 
